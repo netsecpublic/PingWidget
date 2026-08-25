@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="PingWidget/ping2.ico" />
+  </Folder>
+  <Project Path="PingWidget/PingWidget.csproj" />
+</Solution>

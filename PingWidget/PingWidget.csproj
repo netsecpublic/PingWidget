@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWpf>true</UseWpf>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<!-- This applies the icon to the actual .exe file in your bin folder -->
+		<ApplicationIcon>ping2.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="ping2.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="ping2.ico" />
+	</ItemGroup>
+
+</Project>
