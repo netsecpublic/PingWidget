@@ -87,7 +87,8 @@ namespace PingWidget.ViewModels
             }
 
             AddServerCommand = new RelayCommand(_ => AddServer());
-            RemoveServerCommand = new RelayCommand(param => RemoveServer(param), _ => SelectedServer != null);
+            // We removed the strict 'CanExecute' rule so WPF stops turning it white
+            RemoveServerCommand = new RelayCommand(param => RemoveServer(param));
             MoveUpCommand = new RelayCommand(_ => MoveUp());
             MoveDownCommand = new RelayCommand(_ => MoveDown());
             SaveCommand = new RelayCommand(_ => SaveAndClose());
@@ -114,9 +115,8 @@ namespace PingWidget.ViewModels
         {
             if (SelectedServer == null) return;
             int index = Servers.IndexOf(SelectedServer);
-            if (index > 0) // Ensure it's not already at the top
+            if (index > 0)
             {
-                // Force a hard redraw by Removing and Inserting, keeping selection intact
                 var item = SelectedServer;
                 Servers.RemoveAt(index);
                 Servers.Insert(index - 1, item);
@@ -128,9 +128,8 @@ namespace PingWidget.ViewModels
         {
             if (SelectedServer == null) return;
             int index = Servers.IndexOf(SelectedServer);
-            if (index >= 0 && index < Servers.Count - 1) // Ensure it's not already at the bottom
+            if (index >= 0 && index < Servers.Count - 1)
             {
-                // Force a hard redraw by Removing and Inserting, keeping selection intact
                 var item = SelectedServer;
                 Servers.RemoveAt(index);
                 Servers.Insert(index + 1, item);

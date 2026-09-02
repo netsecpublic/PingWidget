@@ -112,8 +112,16 @@ namespace PingWidget.ViewModels
             {
                 if (_isMonitoring)
                 {
-                    foreach (var serverVm in Servers)
+                    // FIX: Take a thread-safe snapshot of the servers so the loop doesn't crash during a save
+                    ServerViewModel[] serversSnapshot = Array.Empty<ServerViewModel>();
+                    Application.Current?.Dispatcher.Invoke(() =>
                     {
+                        serversSnapshot = Servers.ToArray();
+                    });
+
+                    foreach (var serverVm in serversSnapshot)
+                    {
+                        if (token.IsCancellationRequested) break;
                         if (!serverVm.Configuration.IsEnabled) continue;
 
                         var result = await _pingService.SendPingAsync(serverVm.Configuration.Hostname, 2000, token);
@@ -212,7 +220,6 @@ namespace PingWidget.ViewModels
             }
 
             // GLOBAL TRAY FLASHING LOGIC
-            // Ensure the tray only flashes if at least ONE server is actively triggering an alarm and is unmuted.
             if (Servers.Any(s => s.Status.AlarmTriggered))
             {
                 _trayService.StartFlashing();
