@@ -39,10 +39,3 @@ Once launched, PingWidget sits quietly on your desktop.
 
 * C# / WPF
 * .NET 8.0
-
-## Building from Source
-
-To compile a minimal, framework-dependent single-file executable, run the following from the Developer PowerShell in the project directory:
-
-```powershell
-dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:DebugSymbols=false -p:DebugType=None
